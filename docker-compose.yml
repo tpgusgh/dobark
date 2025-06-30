@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: gambling_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: gambling_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-sql-scripts:/docker-entrypoint-initdb.d/
+
+    networks:
+      - gambling_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: gambling_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - gambling_network
+
+  backend:
+    build: ./backend
+    container_name: gambling_backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@postgres:5432/gambling_db
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ./backend:/app
+    networks:
+      - gambling_network
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+volumes:
+  postgres_data:
+
+networks:
+  gambling_network:
+    driver: bridge
