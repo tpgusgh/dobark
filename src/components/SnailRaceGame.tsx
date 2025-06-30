@@ -196,7 +196,6 @@ const SnailRaceGame: React.FC = () => {
           ))}
         </div>
 
-        {/* Result */}
         {raceResult && (
           <div className={`mt-6 p-4 rounded-lg text-center ${
             raceResult === 'win' 
@@ -218,7 +217,6 @@ const SnailRaceGame: React.FC = () => {
         )}
       </div>
 
-      {/* Game History */}
       <div className="bg-black/40 backdrop-blur-sm rounded-lg p-6 border border-purple-500/20">
         <h2 className="text-xl font-semibold text-white mb-4 flex items-center">
           <TrendingUp className="mr-2" size={20} />

@@ -20,16 +20,16 @@ const AuthForm: React.FC = () => {
     if (isLogin) {
       const success = login(formData.email, formData.password);
       if (!success) {
-        setError('Invalid email or password');
+        setError('이메일 또는 패스워드가 틀렸습니다');
       }
     } else {
       if (!formData.username || !formData.email || !formData.password) {
-        setError('Please fill in all fields');
+        setError('모든칸을 채워주세요');
         return;
       }
       const success = register(formData.username, formData.email, formData.password);
       if (!success) {
-        setError('User already exists');
+        setError('이미 있는 유저입니다');
       }
     }
   };
@@ -51,7 +51,7 @@ const AuthForm: React.FC = () => {
             {!isLogin && (
               <div>
                 <label htmlFor="username" className="sr-only">
-                  Username
+                  이름
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -95,7 +95,7 @@ const AuthForm: React.FC = () => {
 
             <div>
               <label htmlFor="password" className="sr-only">
-                Password
+                비밀번호
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
